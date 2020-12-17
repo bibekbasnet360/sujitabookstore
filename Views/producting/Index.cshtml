@@ -1,0 +1,46 @@
+﻿@model IEnumerable<sujitabookstore.producting>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.img_path)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ptable.P_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ptable1.P_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.img_path)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ptable.P_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ptable1.P_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.img_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.img_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.img_id })
+          
+        </td>
+    </tr>
+}
+
+</table>

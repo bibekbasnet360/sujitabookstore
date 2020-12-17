@@ -1,0 +1,58 @@
+﻿@model sujitabookstore.Ptable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ptable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.P_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cat_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cat_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.P_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

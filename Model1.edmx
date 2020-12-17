@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="sujitabooksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cat_table">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cat_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'sujitabooks.dbo.o_details' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="o_details">
+          <Property Name="details_id" Type="int" />
+          <Property Name="o_id" Type="int" />
+          <Property Name="P_id" Type="int" />
+          <Property Name="o_quantity" Type="int" />
+          <Property Name="P_price" Type="money" />
+          <Property Name="o_total" Type="money" />
+        </EntityType>-->
+        <EntityType Name="ordertable">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="int" Nullable="false" />
+          <Property Name="o_details" Type="datetime" />
+          <Property Name="o_address" Type="varchar" MaxLength="50" />
+          <Property Name="o_phone" Type="varchar" MaxLength="50" />
+          <Property Name="o_total" Type="money" />
+          <Property Name="o-status" Type="varchar" MaxLength="50" />
+          <Property Name="u_id" Type="int" />
+        </EntityType>
+        <EntityType Name="producting">
+          <Key>
+            <PropertyRef Name="img_id" />
+          </Key>
+          <Property Name="img_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_id" Type="int" />
+          <Property Name="img_path" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Ptable">
+          <Key>
+            <PropertyRef Name="P_id" />
+          </Key>
+          <Property Name="P_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="P_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="P_price" Type="money" Nullable="false" />
+          <Property Name="P_quantity" Type="int" Nullable="false" />
+          <Property Name="P_details" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cat_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usertable">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="u_name" Type="varchar" MaxLength="50" />
+          <Property Name="u_password" Type="varchar" MaxLength="50" />
+          <Property Name="u_type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+error 6004: The table 'sujitabooks.dbo.o_details' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_o_details_ordertable" />-->
+        <Association Name="FK_ordertable_usertable">
+          <End Role="usertable" Type="Self.usertable" Multiplicity="0..1" />
+          <End Role="ordertable" Type="Self.ordertable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usertable">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="ordertable">
+              <PropertyRef Name="u_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_producting_Ptable">
+          <End Role="Ptable" Type="Self.Ptable" Multiplicity="0..1" />
+          <End Role="producting" Type="Self.producting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ptable">
+              <PropertyRef Name="P_id" />
+            </Principal>
+            <Dependent Role="producting">
+              <PropertyRef Name="P_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_producting_Ptable1">
+          <End Role="Ptable" Type="Self.Ptable" Multiplicity="0..1" />
+          <End Role="producting" Type="Self.producting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ptable">
+              <PropertyRef Name="P_id" />
+            </Principal>
+            <Dependent Role="producting">
+              <PropertyRef Name="P_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sujitabooksModelStoreContainer">
+          <EntitySet Name="cat_table" EntityType="Self.cat_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ordertable" EntityType="Self.ordertable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="producting" EntityType="Self.producting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ptable" EntityType="Self.Ptable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usertable" EntityType="Self.usertable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ordertable_usertable" Association="Self.FK_ordertable_usertable">
+            <End Role="usertable" EntitySet="usertable" />
+            <End Role="ordertable" EntitySet="ordertable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_producting_Ptable" Association="Self.FK_producting_Ptable">
+            <End Role="Ptable" EntitySet="Ptable" />
+            <End Role="producting" EntitySet="producting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_producting_Ptable1" Association="Self.FK_producting_Ptable1">
+            <End Role="Ptable" EntitySet="Ptable" />
+            <End Role="producting" EntitySet="producting" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sujitabooksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cat_table">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cat_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ordertable">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="Int32" Nullable="false" />
+          <Property Name="o_details" Type="DateTime" Precision="3" />
+          <Property Name="o_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="o_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="o_total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="o_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="u_id" Type="Int32" />
+          <NavigationProperty Name="usertable" Relationship="Self.FK_ordertable_usertable" FromRole="ordertable" ToRole="usertable" />
+        </EntityType>
+        <EntityType Name="producting">
+          <Key>
+            <PropertyRef Name="img_id" />
+          </Key>
+          <Property Name="img_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_id" Type="Int32" />
+          <Property Name="img_path" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ptable" Relationship="Self.FK_producting_Ptable" FromRole="producting" ToRole="Ptable" />
+          <NavigationProperty Name="Ptable1" Relationship="Self.FK_producting_Ptable1" FromRole="producting" ToRole="Ptable" />
+        </EntityType>
+        <EntityType Name="Ptable">
+          <Key>
+            <PropertyRef Name="P_id" />
+          </Key>
+          <Property Name="P_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="P_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="P_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="P_quantity" Type="Int32" Nullable="false" />
+          <Property Name="P_details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cat_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="productings" Relationship="Self.FK_producting_Ptable" FromRole="Ptable" ToRole="producting" />
+          <NavigationProperty Name="productings1" Relationship="Self.FK_producting_Ptable1" FromRole="Ptable" ToRole="producting" />
+        </EntityType>
+        <EntityType Name="usertable">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="u_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="u_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ordertables" Relationship="Self.FK_ordertable_usertable" FromRole="usertable" ToRole="ordertable" />
+        </EntityType>
+        <Association Name="FK_ordertable_usertable">
+          <End Role="usertable" Type="Self.usertable" Multiplicity="0..1" />
+          <End Role="ordertable" Type="Self.ordertable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usertable">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="ordertable">
+              <PropertyRef Name="u_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_producting_Ptable">
+          <End Role="Ptable" Type="Self.Ptable" Multiplicity="0..1" />
+          <End Role="producting" Type="Self.producting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ptable">
+              <PropertyRef Name="P_id" />
+            </Principal>
+            <Dependent Role="producting">
+              <PropertyRef Name="P_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_producting_Ptable1">
+          <End Role="Ptable" Type="Self.Ptable" Multiplicity="0..1" />
+          <End Role="producting" Type="Self.producting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ptable">
+              <PropertyRef Name="P_id" />
+            </Principal>
+            <Dependent Role="producting">
+              <PropertyRef Name="P_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sujitabooksEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cat_table" EntityType="Self.cat_table" />
+          <EntitySet Name="ordertables" EntityType="Self.ordertable" />
+          <EntitySet Name="productings" EntityType="Self.producting" />
+          <EntitySet Name="Ptables" EntityType="Self.Ptable" />
+          <EntitySet Name="usertables" EntityType="Self.usertable" />
+          <AssociationSet Name="FK_ordertable_usertable" Association="Self.FK_ordertable_usertable">
+            <End Role="usertable" EntitySet="usertables" />
+            <End Role="ordertable" EntitySet="ordertables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_producting_Ptable" Association="Self.FK_producting_Ptable">
+            <End Role="Ptable" EntitySet="Ptables" />
+            <End Role="producting" EntitySet="productings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_producting_Ptable1" Association="Self.FK_producting_Ptable1">
+            <End Role="Ptable" EntitySet="Ptables" />
+            <End Role="producting" EntitySet="productings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sujitabooksModelStoreContainer" CdmEntityContainer="sujitabooksEntities">
+          <EntitySetMapping Name="cat_table">
+            <EntityTypeMapping TypeName="sujitabooksModel.cat_table">
+              <MappingFragment StoreEntitySet="cat_table">
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ordertables">
+            <EntityTypeMapping TypeName="sujitabooksModel.ordertable">
+              <MappingFragment StoreEntitySet="ordertable">
+                <ScalarProperty Name="o_id" ColumnName="o_id" />
+                <ScalarProperty Name="o_details" ColumnName="o_details" />
+                <ScalarProperty Name="o_address" ColumnName="o_address" />
+                <ScalarProperty Name="o_phone" ColumnName="o_phone" />
+                <ScalarProperty Name="o_total" ColumnName="o_total" />
+                <ScalarProperty Name="o_status" ColumnName="o-status" />
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productings">
+            <EntityTypeMapping TypeName="sujitabooksModel.producting">
+              <MappingFragment StoreEntitySet="producting">
+                <ScalarProperty Name="img_id" ColumnName="img_id" />
+                <ScalarProperty Name="P_id" ColumnName="P_id" />
+                <ScalarProperty Name="img_path" ColumnName="img_path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ptables">
+            <EntityTypeMapping TypeName="sujitabooksModel.Ptable">
+              <MappingFragment StoreEntitySet="Ptable">
+                <ScalarProperty Name="P_id" ColumnName="P_id" />
+                <ScalarProperty Name="P_name" ColumnName="P_name" />
+                <ScalarProperty Name="P_price" ColumnName="P_price" />
+                <ScalarProperty Name="P_quantity" ColumnName="P_quantity" />
+                <ScalarProperty Name="P_details" ColumnName="P_details" />
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usertables">
+            <EntityTypeMapping TypeName="sujitabooksModel.usertable">
+              <MappingFragment StoreEntitySet="usertable">
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_password" ColumnName="u_password" />
+                <ScalarProperty Name="u_type" ColumnName="u_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

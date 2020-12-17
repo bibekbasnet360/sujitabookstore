@@ -1,0 +1,42 @@
+﻿@model sujitabookstore.producting
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>producting</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.img_path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img_path)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ptable.P_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ptable.P_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ptable1.P_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ptable1.P_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.img_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

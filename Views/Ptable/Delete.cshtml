@@ -1,0 +1,64 @@
+﻿@model sujitabookstore.Ptable
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Ptable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.P_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cat_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cat_id)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
